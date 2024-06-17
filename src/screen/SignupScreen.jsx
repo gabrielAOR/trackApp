@@ -5,12 +5,17 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
 import SignupData from '../components/SignupData'
 import PersonalData from '../components/PersonalData'
+import { useNavigation } from '@react-navigation/native';
 
 
 const SignupScreen = () => {
 
+    const navigation = useNavigation();
     const [section, setSection] = useState(0);
 
+    const handleBack = () =>{
+        navigation.navigate("Login")
+    }
       
     function navigateForward() {
         setSection(section + 1);
@@ -20,7 +25,9 @@ const SignupScreen = () => {
     return (
 
     <View>
-        <Image source={require("../assets/topVector.png")} style={styles.topImage}/>
+        <TouchableOpacity onPress={handleBack}>
+            <AntDesign name={"arrowleft"} size={30} color={"black"} style={styles.backButton}/>
+        </TouchableOpacity>
         <View>
         {
             section == 0 ? <SignupData /> : <PersonalData />
@@ -74,5 +81,9 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 18,
         marginTop: 60
+    },
+    backButton:{
+        marginLeft: 10,
+        marginTop: 10,
     }
 });
